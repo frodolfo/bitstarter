@@ -39,18 +39,6 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var buildfn = function(indexHtmlFile) {
-    var responseToHtmlFile = function(result, response) {
-        if (result instanceof Error) {
-            console.error('Error: ' + util.format(response.message));
-        } else {
-            console.error("Wrote %s", indexHtmlFile);
-            fs.writeFileSync(indexHtmlFile, result);
-        }
-    };
-    return responseToHtmlFile;
-};
-
 var cheerioHtmlFile = function(htmlfile) {
     return cheerio.load(fs.readFileSync(htmlfile));
 };
@@ -59,26 +47,61 @@ var loadChecks = function(checksfile) {
     return JSON.parse(fs.readFileSync(checksfile));
 };
 
-var checkHtmlFile = function(urlToFile, htmlfile, checksfile) {
-    // --url param takes precendence over local file input
-    if (urlToFile) {
-	console.log("urlToFile: " + urlToFile);
-	var remoteHtmlFile = HTMLREMOTEFILE_DEFAULT; 
-	var responseToHtmlFile = buildfn(remoteHtmlFile);
-	rest.get(urlToFile).on('complete', responseToHtmlFile);
-	console.log("remoteHtmlFile: " + remoteHtmlFile);
-	htmlfile = remoteHtmlFile;
-    }
+var checkJson = function(output) {
+    return (JSON.stringify(output, null, 4));
+};
 
-    console.log("htmlfile: " + htmlfile);
+var processLocalHtmlFile = function(htmlfile, checksfile) {
+    var out, 
+	outJson,
+	checks;
+
     $ = cheerioHtmlFile(htmlfile);
-    var checks = loadChecks(checksfile).sort();
-    var out = {};
+    checks = loadChecks(checksfile).sort();
+    out = {}; 
     for(var ii in checks) {
-        var present = $(checks[ii]).length > 0;
-        out[checks[ii]] = present;
+       var present = $(checks[ii]).length > 0;
+       out[checks[ii]] = present;
     }
-    return out;
+    outJson = checkJson(out);
+    console.log("outJson:\n" + outJson);
+    // Write outJson to output.json
+    fs.writeFileSync("output.json", outJson);
+};
+
+var processRemoteHtmlFile = function(urlToFile, checksfile) {
+    var out,
+	outJson, 
+	checks,
+        remoteHtmlFile = HTMLREMOTEFILE_DEFAULT;
+
+    rest.get(urlToFile).on('complete', function(result, response) {
+         if (result instanceof Error) {
+            console.error('Error: ' + util.format(response.message));
+         } else {
+            //console.error("Wrote %s", remoteHtmlFile);
+            fs.writeFileSync(remoteHtmlFile, result);
+    	    $ = cheerioHtmlFile(remoteHtmlFile);
+    	    checks = loadChecks(checksfile).sort();
+    	    out = {};
+    	    for(var ii in checks) {
+       		var present = $(checks[ii]).length > 0;
+         	out[checks[ii]] = present;
+    	    }
+         }
+	 outJson = checkJson(out);
+	 console.log("outJson:\n" + outJson);
+	 // Write outJson to output.json
+	 fs.writeFileSync("output.json", outJson);
+     });
+};
+
+var checkHtmlFile = function(urlToFile, htmlfile, checksfile) {
+    if (urlToFile) {
+	processRemoteHtmlFile(urlToFile, checksfile);
+    } else {
+    	processLocalHtmlFile(htmlfile, checksfile);
+    } 
 };
 
 var clone = function(fn) {
@@ -91,14 +114,10 @@ if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-        .option('-u, --url <url_to_index.html>', 'URL to index.html')
+        .option('-u, --url <url_to_html_file>', 'URL to index.html')
         .parse(process.argv);
 
-    var checkJson = checkHtmlFile(program.url, program.file, program.checks);
-    var outJson = JSON.stringify(checkJson, null, 4);
-    console.log(outJson);
-    // Write outJson to output.json
-    //fs.writeFileSync("output.json", outJson);
+    checkHtmlFile(program.url, program.file, program.checks);
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
