@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My First Bitstarter</title>
+    <title>PeepSqueeze</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
@@ -14,7 +14,13 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800" 
           rel="stylesheet" type="text/css">
     <style type="text/css">
-
+	.navbar-inverse .brand, .navbar-inverse .nav>li>a {
+	   color: #fff !important;
+	}
+	.navbar-inverse .navbar-inner {
+	   background-image: none !important;
+	   background-color: #0C69A7 !important;
+	}
       /* Large desktop */
       @media (min-width: 980px) { 
         body {
@@ -110,7 +116,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Bitstarter</a>
+          <a class="brand" href="#">PeepSqueeze</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -125,17 +131,17 @@
     <div class="container">
       <div class="row-fluid heading">
         <div class="span12">
-          <h1>Product</h1>
+          <h1>PeepSqueeze</h1>
         </div>
       </div> 
       <div class="row-fluid subheading">
         <div class="span12">
-          <p class="lead">One sentence description.</p>
+          <p class="lead">Find customers that need you the most.</p>
         </div>
       </div>
       <div class="row-fluid pitch">
         <div class="span5 offset1 video">
-          <img class="img-polaroid" src="http://placehold.it/480x300">
+          <img class="img-polaroid" src="http://i.imgur.com/aJJFBOq.jpg">
         </div>
 
         <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
@@ -149,12 +155,12 @@
               </div>
               <div class="span4">
                 <div class="linediv-c">
-                  <h3>$6000</h3> <p>of $10,000</p>
+                  <h3>$1000</h3> <p>of $50,000</p>
                 </div>
               </div>
               <div class="span4">
                 <div class="linediv-r">
-                <h3>10</h3> <p>days left</p>
+                <h3>60</h3> <p>days left</p>
                 </div>
               </div>
             </div>
@@ -177,16 +183,17 @@
 
       <div class="row-fluid section1">
         <div class="span5 offset1 asset">
-          <img class="img-polaroid" src="http://placehold.it/480x300">
+          <img class="img-polaroid" src="http://i.imgur.com/YR2Omk1.jpg">
         </div>
         <div class="span5 copy">
           <p>
-	    Bacon ipsum dolor sit amet sirloin corned beef drumstick shoulder fatback salami 
-	    shank chicken meatloaf jerky beef ribs. Biltong turducken turkey, beef ribs venison 
-	    leberkas t-bone ribeye jowl beef corned beef pork belly jerky. Short ribs jerky pancetta 
-	    boudin tongue meatloaf spare ribs meatball bresaola. Leberkas pig biltong, turkey 
-	    pancetta strip steak beef ribs tenderloin ham doner spare ribs tail venison. Drumstick 
-	    turducken cow, doner jowl shank t-bone corned beef pancetta.
+
+	    Find concentrations of people nearby who are likely to need your services.  
+	    I wasn't able to turn in this homework in time because I struggled with
+	    coming up with an idea for a CrowdFunding site.  At the time of modifying
+	    this page, I simply didn't have anything in mind to use as an idea for an
+	    app or service.  So I decided to use one of the suggested examples and tweaked
+	    some of the things shown here.
           </p>
         </div>
       </div>
@@ -194,14 +201,15 @@
       <div class="row-fluid section2">
         <div class="span5 offset1 copy copy-right">
           <p>
-	    Turducken hamburger beef t-bone filet mignon rump. Filet mignon leberkas short ribs 
-	    kielbasa cow doner sirloin turducken flank shoulder. Jerky meatloaf tongue, ribeye leberkas 
-	    beef kielbasa salami short loin pork loin brisket andouille ground round. Bacon t-bone 
-	    jerky ground round beef tenderloin hamburger venison pancetta ham hock jowl.
+	    Based on the example chosen, this service is supposed to mine social networks
+	    publicly accessible data that are relevant to users of the service.  The idea
+	    is to provide our customers with a segment of potential customers that fit 
+	    their target market.  This in turn allows our customers to go after leads that
+	    they wouldn't have been able to reach through traditional means.
           </p>
         </div>
         <div class="span5 asset">
-          <img class="img-polaroid" src="http://placehold.it/480x300">
+          <img class="img-polaroid" src="http://i.imgur.com/r3DSPUm.png">
         </div>
       </div>
 
@@ -213,12 +221,13 @@
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse"
                      data-parent="#accordion2" href="#collapseOne">
-                    What does FAQ stand for?
+                    What is PeepSqueeze?
                   </a>
                 </div>
                 <div id="collapseOne" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    Frequently Asked Question.
+                    PeepSqueeze is a service that provides leads that match targeted
+		    demographics from social networks.
                   </div>
                 </div>
               </div>
@@ -226,12 +235,12 @@
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse"
                      data-parent="#accordion2" href="#collapseTwo">
-                    What's a Frequently Asked Question?
+                    Which social networks do you cover?
                   </a>
                 </div>
                 <div id="collapseTwo" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    A question which is commonly asked by users.
+                    Currently, we mine user segments from Facebook, Twitter, Google+ and LinkedIn.
                   </div>
                 </div>
               </div>
